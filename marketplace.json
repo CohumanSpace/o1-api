@@ -1,0 +1,12 @@
+{
+  "name": "o1.exchange Trading Skills",
+  "description": "Skills for trading on o1.exchange with MEV protection and multi-network support",
+  "version": "1.0.0",
+  "skills": [
+    {
+      "name": "o1.exchange Trading API",
+      "path": ".",
+      "description": "Execute trades on o1.exchange with enterprise-grade features including MEV protection, gasless approvals, and multi-network support for Base and BSC"
+    }
+  ]
+}
