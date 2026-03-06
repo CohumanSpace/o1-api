@@ -1,6 +1,6 @@
 ---
 name: "o1.exchange Trading API"
-description: "Execute trades on o1.exchange with MEV protection, gasless approvals, and multi-network support for Base and BSC"
+description: "Execute trades on o1.exchange with MEV protection, gasless approvals, and multi-network support for Solana, Base, and BSC"
 version: "1.0.0"
 author: "o1.exchange"
 tags: ["trading", "defi", "blockchain", "api", "crypto"]
@@ -12,7 +12,7 @@ This skill enables Claude Code to interact with the o1.exchange trading API to e
 
 ## Features
 
-- **Multi-Network Support**: Trade on Base (ETH) and BSC (BNB) networks
+- **Multi-Network Support**: Trade on Solana (SOL), Base (ETH), and BSC (BNB) networks
 - **MEV Protection**: Built-in sandwich attack prevention through private mempool routing
 - **Gasless Approvals**: One-time Permit2 signatures for unlimited trading
 - **Automatic Slippage Protection**: Customizable slippage limits
@@ -29,6 +29,7 @@ Create a `.env.local` file with the following required variables:
 EXECUTE_TRADE_PRIVATE_KEY=your_wallet_private_key_here
 EXECUTE_TRADE_API_TOKEN=your_o1_exchange_api_token_here
 EXECUTE_TRADE_BASE_URL=https://api.o1.exchange
+EXECUTE_TRADE_SOLANA_RPC_URL=your_solana_rpc_url_here
 EXECUTE_TRADE_BASE_RPC_URL=your_base_rpc_url_here
 EXECUTE_TRADE_BSC_RPC_URL=your_bsc_rpc_url_here
 ```
@@ -53,7 +54,7 @@ Ensure these npm packages are installed:
   - `direction`: "buy" or "sell"
   - `slippageBps`: Slippage tolerance in basis points (default: 300 = 3%)
   - `mevProtection`: Boolean for MEV protection (recommended: true)
-  - `networkId`: Network chain ID (8453 for Base, 56 for BSC)
+  - `networkId`: Network chain ID (Solana: 1399811149, Base: 8453, BSC: 56)
 
 ### Complete Order
 - **Endpoint**: `POST /api/v2/order/complete`
@@ -75,7 +76,7 @@ const orderResponse = await axios.post(`${BASE_URL}/api/v2/order`, {
   direction: "buy",
   slippageBps: 300,
   mevProtection: true,
-  networkId: 8453 // Base
+  networkId: 8453 // Base (use 1399811149 for Solana network)
 }, {
   headers: { Authorization: `Bearer ${API_TOKEN}` }
 });
@@ -98,13 +99,19 @@ node sampleScripts/execute-trade-interactive.js
 ```
 
 The script will prompt for:
-1. Network selection (base/bsc)
+1. Network selection (solana/base/bsc)
 2. Token contract address
 3. Trade direction (buy/sell)
 4. Amount
 5. Trade confirmation
 
 ## Supported Networks
+
+### Solana Network
+- **Chain ID**: 1399811149
+- **Native Currency**: SOL
+- **RPC**: Configure `EXECUTE_TRADE_SOLANA_RPC_URL`
+- **Example Tokens**: Various SPL tokens supported
 
 ### Base Network
 - **Chain ID**: 8453
